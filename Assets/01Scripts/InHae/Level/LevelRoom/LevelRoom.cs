@@ -19,8 +19,6 @@ public enum LevelTypeEnum
 
 public abstract class LevelRoom : MonoBehaviour
 {
-    [SerializeField] private GameEventChannelSO _endStageEventChannel;
-
     public LevelTypeEnum levelType;
     public bool isAutoOpen;
 
@@ -162,11 +160,6 @@ public abstract class LevelRoom : MonoBehaviour
 
         isClear = true;
         ClearEvent?.Invoke();
-
-        //var evt = LevelEvents.StageEndEvent;
-
-       // if (!(levelType == LevelTypeEnum.StartLevel))
-       //     _endStageEventChannel.RaiseEvent(evt);
 
         if (isAutoOpen) 
             ConnectDoorOpen();
