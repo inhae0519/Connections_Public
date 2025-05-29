@@ -18,9 +18,9 @@ public abstract class SkillFieldDataSO : ScriptableObject
     
     private void Awake()
     {
-        List<FieldInfo> skillElementInfos = GetType()
+        var skillElementInfos = GetType()
             .GetFields(BindingFlags.Instance | BindingFlags.Public)
-            .Where(x=>typeof(BaseSkillStatElement).IsAssignableFrom(x.FieldType)).ToList();
+            .Where(x=>typeof(BaseSkillStatElement).IsAssignableFrom(x.FieldType));
         
         foreach (var skillElement in skillElementInfos)
         {
