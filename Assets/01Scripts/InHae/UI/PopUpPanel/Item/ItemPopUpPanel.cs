@@ -8,6 +8,7 @@ public enum ItemPopUpItemType
     Part,
     Chain,
     NodeAbility,
+    SkillStat,
 }
 
 public abstract class ItemPopUpPanel : MonoBehaviour

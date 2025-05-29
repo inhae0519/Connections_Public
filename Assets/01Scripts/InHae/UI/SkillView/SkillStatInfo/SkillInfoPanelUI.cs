@@ -67,7 +67,9 @@ public class SkillInfoPanelUI : MonoBehaviour
         _skillIcon.sprite = evt.skillInventoryItem.data.icon;
         
         _skillName.text = evt.skillInventoryItem.data.itemName;
-        _skillName.fontSize = _skillName.rectTransform.sizeDelta.x / _skillName.text.Length;
+        float fontSize = Mathf.Clamp(_skillName.rectTransform.sizeDelta.x / _skillName.text.Length, 
+            1f, 60f);
+        _skillName.fontSize = fontSize;
         
         _skillDescription.text = evt.skillInventoryItem.data.itemDescription;
 
