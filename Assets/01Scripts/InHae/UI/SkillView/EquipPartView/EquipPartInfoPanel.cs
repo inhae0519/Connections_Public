@@ -26,8 +26,8 @@ public class EquipPartInfoPanel : MonoBehaviour
     {
         _scrollbar = GetComponentInChildren<Scrollbar>();
 
-        _skillTitle = transform.Find("SkillName").GetComponent<TextMeshProUGUI>();
-        _skillDescription = transform.Find("Description").GetComponent<TextMeshProUGUI>();
+        _skillTitle = transform.Find("TopGroup/SkillName").GetComponent<TextMeshProUGUI>();
+        _skillDescription = transform.Find("TopGroup/Description").GetComponent<TextMeshProUGUI>();
         
         _skillNodeEventChannel.AddListener<EquipPartInfoEvent>(HandleEquipPartInfoEvent);
         _skillNodeEventChannel.AddListener<EquipPartInfoInitEvent>(HandlePartInfoInitEvent);

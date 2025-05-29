@@ -13,14 +13,13 @@ public class SkillInfoPanelUI : MonoBehaviour
     [SerializeField] private float _tweenTime;
     
     [SerializeField] private Image _skillIcon;
-    private TextMeshProUGUI _skillName;
-    private TextMeshProUGUI _skillDescription;
+    [SerializeField] private TextMeshProUGUI _skillName;
+    [SerializeField] private TextMeshProUGUI _skillDescription;
 
-    [SerializeField] private Transform _statTextParent;
-    private Dictionary<SkillFieldDataType, SkillStatTextUI> _statTextUI = new Dictionary<SkillFieldDataType, SkillStatTextUI>();
+    private Dictionary<SkillFieldDataType, SkillStatTextGroupUI> _statTextUI = new Dictionary<SkillFieldDataType, SkillStatTextGroupUI>();
     
-    [SerializeField] private RectTransform _arrowTrm;
     [SerializeField] private float _offset;
+    private RectTransform _arrowTrm;
     private Vector3 _arrowDefaultScale;
     
     private bool _isOpen = true;
@@ -28,13 +27,11 @@ public class SkillInfoPanelUI : MonoBehaviour
 
     private void Awake()
     {
+        _arrowTrm = transform.Find("InOutButton/Arrow").transform as RectTransform;
         _initPos = transform.localPosition;
         _arrowDefaultScale = _arrowTrm.localScale;
             
-        _skillName = transform.Find("SkillName").GetComponent<TextMeshProUGUI>();
-        _skillDescription = transform.Find("Description").GetComponent<TextMeshProUGUI>();
-
-        _statTextParent.GetComponentsInChildren<SkillStatTextUI>().ToList()
+        GetComponentsInChildren<SkillStatTextGroupUI>().ToList()
             .ForEach(x => _statTextUI.Add(x.fieldType, x));
         
         _skillNodeEventChannel.AddListener<SkillStatViewInitEvent>(HandleSkillStatViewInit);
@@ -68,7 +65,10 @@ public class SkillInfoPanelUI : MonoBehaviour
     private void HandleSkillStatViewInit(SkillStatViewInitEvent evt)
     {
         _skillIcon.sprite = evt.skillInventoryItem.data.icon;
+        
         _skillName.text = evt.skillInventoryItem.data.itemName;
+        _skillName.fontSize = _skillName.rectTransform.sizeDelta.x / _skillName.text.Length;
+        
         _skillDescription.text = evt.skillInventoryItem.data.itemDescription;
 
         foreach (var statTextUI in _statTextUI)
